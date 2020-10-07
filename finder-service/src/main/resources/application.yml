@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/finder
+    username: postgres
+    password: postgres
+  jpa:
+    generate-ddl: true
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+jwt:
+  token:
+    secret: JWTeDiToRaPp
+    refresh:
+      expired: 32400000
+    bearer:
+      expired: 32400000
+
+swagger:
+  enabled: true
+
+app:
+    mailServerEnabled: true
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

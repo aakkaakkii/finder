@@ -1,0 +1,84 @@
+version: '3'
+services:
+  discovery-service:
+    image: finder/discovery-service
+    build:
+      dockerfile: ./Dockerfile
+      context: ../../discovery-service
+    ports:
+      - "8761:8761"
+  gateway:
+    image: finder/gateway
+    build:
+      dockerfile: ./Dockerfile
+      context: ../../gateway
+    ports:
+      - "5555:5555"
+      - "8001:8001"
+    links:
+      - "discovery-service:discovery-service"
+    environment:
+      SERVER_PORT: "5555"
+      DEBUG_PORT: "8001"
+      DISCOVERY_URI: "http://discovery-service:8761/eureka/"
+  auth-server:
+    image: finder/auth-server
+    build:
+      dockerfile: ./Dockerfile
+      context: ../../auth-server
+    ports:
+      - "8901:8901"
+      - "8002:8002"
+    links:
+      - "gateway:gateway"
+      - "discovery-service:discovery-service"
+      - "finder-postgres:finder-postgres"
+    environment:
+      SERVER_PORT: "8901"
+      DEBUG_PORT: "8002"
+      DISCOVERY_URI: "http://discovery-service:8761/eureka/"
+      DB_URI: "jdbc:postgresql://finder-postgres:5432/finder"
+    depends_on:
+      - finder-postgres
+  finder-postgres:
+    image: postgres:9.6
+    ports:
+    - "5432:5432"
+    environment:
+      POSTGRES_DB: finder
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - finder-postgres-volume:/var/lib/postgresql/data
+  mail-server:
+    image: finder/mail-server
+    build:
+      dockerfile: ./Dockerfile
+      context: ../../mail-server
+    ports:
+      - "8025:8025"
+      - "8003:8003"
+    links:
+      - "discovery-service:discovery-service"
+    environment:
+      SERVER_PORT: "8025"
+      DEBUG_PORT: "8003"
+      DISCOVERY_URI: "http://discovery-service:8761/eureka/"
+  file-storage:
+    image: finder/file-storage
+    build:
+      dockerfile: ./Dockerfile
+      context: ../../file-storage
+    ports:
+      - "8180:8180"
+      - "8004:8004"
+    links:
+      - "discovery-service:discovery-service"
+    environment:
+      SERVER_PORT: "8180"
+      DEBUG_PORT: "8004"
+      DISCOVERY_URI: "http://discovery-service:8761/eureka/"
+
+volumes:
+  finder-postgres-volume:
+    external: true
