@@ -9,7 +9,7 @@ import com.finder.port.models.request.UserRequestModel;
 import java.util.List;
 
 public interface UserService {
-    List<User> loadUser(int page, int limit);
+    List<User> load(int page, int limit);
     List<User> loadByGroup(Long groupId, int page, int limit);
     User getByUsername(String username);
     User getById(Long id);

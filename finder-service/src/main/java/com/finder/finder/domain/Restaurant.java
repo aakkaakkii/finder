@@ -17,5 +17,7 @@ public class Restaurant {
     private String description;
     private List<String> imagePaths;
     private List<Food> foods;
+    private boolean isBlocked;
+    private Long creatorId;
 
 }

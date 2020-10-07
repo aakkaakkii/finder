@@ -6,10 +6,12 @@ IF %1==build_start (
     CALL :down
     CALL :build
     CALL :start
+    CALL :tail
     GOTO END
 )
 IF %1==start (
     CALL :start
+    CALL :tail
     GOTO END
 )
 IF %1==stop (
@@ -21,7 +23,12 @@ IF %1==purge (
     CALL:purge
     GOTO END
 )
-echo "Usage: %0 {build_start|start|stop|purge|tail|reload_share|reload_acs|build_test|test}"
+IF %1==tail (
+    CALL:down
+    CALL:purge
+    GOTO END
+)
+echo "Usage: %0  {build_start|start|stop|purge|tail}"
 :END
 EXIT /B %ERRORLEVEL%
 
@@ -37,4 +44,7 @@ EXIT /B 0
 EXIT /B 0
 :down
   docker volume rm -f finder-postgres-volume
+EXIT /B 0
+:tail
+    docker-compose -f "$COMPOSE_FILE_PATH" logs -f
 EXIT /B 0

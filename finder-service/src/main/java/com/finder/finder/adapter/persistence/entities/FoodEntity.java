@@ -27,5 +27,8 @@ public class FoodEntity {
             joinColumns = { @JoinColumn(name = "fk_food") },
             inverseJoinColumns = { @JoinColumn(name = "fk_foodTag") })
     private List<FoodTagEntity> foodTags =  new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id")
+    private RestaurantEntity restaurant;
 
 }

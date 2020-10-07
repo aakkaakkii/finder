@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public List<User> loadUser(int page, int limit) {
+    public List<User> load(int page, int limit) {
         return userPort.loadUser(page, limit).stream()
                 .peek(user -> user.setPassword(""))
                 .collect(Collectors.toList());

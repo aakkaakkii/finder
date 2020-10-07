@@ -18,7 +18,7 @@ public class UserRestController {
 
     @GetMapping
     public List<User> load(@RequestParam int start, @RequestParam Integer limit){
-        return userService.loadUser(start, limit);
+        return userService.load(start, limit);
     }
 
     @GetMapping("/{id}")

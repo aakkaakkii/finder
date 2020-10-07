@@ -33,4 +33,14 @@ public class FoodServiceImpl implements FoodService {
     public Food getById(Long id) {
         return foodPort.getById(id);
     }
+
+    @Override
+    public Food add(Food food, Long restaurantId, Long initiatorId) {
+        return null;
+    }
+
+    @Override
+    public Food update(Food food, Long restaurantId, Long initiatorId) {
+        return null;
+    }
 }

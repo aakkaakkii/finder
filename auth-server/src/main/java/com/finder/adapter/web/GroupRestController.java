@@ -31,7 +31,7 @@ public class GroupRestController {
 
     @PutMapping("/{id}")
     public Group update(@RequestBody Group group, @PathVariable Long id) {
-        return groupService.update(group);
+        return groupService.update(group, id);
     }
 
     @DeleteMapping("/{id}")

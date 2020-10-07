@@ -2,6 +2,7 @@ package com.finder.finder.services;
 
 import com.finder.finder.domain.FoodTag;
 import com.finder.finder.port.in.FoodTagService;
+import com.finder.finder.port.models.FoodTagRequest;
 import com.finder.finder.port.out.FoodTagPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ public class FoodTagServiceImpl implements FoodTagService {
     private final FoodTagPort foodTagPort;
 
     @Override
-    public List<FoodTag> getAll() {
+    public List<FoodTag> load() {
         return foodTagPort.loadAll();
     }
 
@@ -24,13 +25,16 @@ public class FoodTagServiceImpl implements FoodTagService {
     }
 
     @Override
-    public FoodTag add(FoodTag foodTag) {
-        return foodTagPort.add(foodTag);
+    public FoodTag add(FoodTagRequest foodTag) {
+        return foodTagPort.add(FoodTag.builder().name(foodTag.name).build());
     }
 
     @Override
-    public FoodTag update(FoodTag foodTag) {
-        return foodTagPort.add(foodTag);
+    public FoodTag update(FoodTagRequest foodTag, Long id) {
+        return foodTagPort.update(FoodTag.builder()
+                .id(id)
+                .name(foodTag.name)
+                .build());
     }
 
     @Override

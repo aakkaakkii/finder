@@ -10,4 +10,6 @@ public interface FoodService {
     List<Food> getRandom5FoodExcludeByIds(List<Long> ids);
     List<Food> loadByTag(FoodTag tag);
     Food getById(Long id);
+    Food add( Food food, Long restaurantId ,Long initiatorId);
+    Food update( Food food, Long restaurantId ,Long initiatorId);
 }

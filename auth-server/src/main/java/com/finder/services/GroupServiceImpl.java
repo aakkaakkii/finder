@@ -29,7 +29,9 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public Group update(Group group) {
+    public Group update(Group group, Long id) {
+        //TODO: change group.setId(id);
+        group.setId(id);
         return groupPort.update(group);
     }
 

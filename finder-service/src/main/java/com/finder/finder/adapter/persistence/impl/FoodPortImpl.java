@@ -1,7 +1,6 @@
 package com.finder.finder.adapter.persistence.impl;
 
 import com.finder.finder.adapter.persistence.mappers.FoodMapper;
-import com.finder.finder.adapter.persistence.mappers.FoodTagMapper;
 import com.finder.finder.adapter.persistence.repository.FoodRepository;
 import com.finder.finder.domain.Food;
 import com.finder.finder.port.out.FoodPort;
@@ -18,7 +17,6 @@ import java.util.stream.Collectors;
 public class FoodPortImpl implements FoodPort {
     private final FoodRepository foodRepository;
     private final FoodMapper foodMapper;
-    private final FoodTagMapper foodTagMapper;
 
     @Override
     public List<Food> loadAll(int page, int limit) {

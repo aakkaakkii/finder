@@ -19,8 +19,10 @@ public class RestaurantEntity {
     private Long id;
     private String name;
     private String description;
+    private boolean isBlocked;
     @OneToMany
     private List<RestaurantImageEntity> imagePaths;
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     private List<FoodEntity> foods;
+    private Long creatorId;
 }
