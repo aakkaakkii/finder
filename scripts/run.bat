@@ -40,11 +40,11 @@ EXIT /B 0
   mvn -f ../ clean package -Dmaven.test.skip=true
 EXIT /B 0
 :down
-  docker-compose -f "$COMPOSE_FILE_PATH" down
+  docker-compose -f "%COMPOSE_FILE_PATH%" down
 EXIT /B 0
 :down
   docker volume rm -f finder-postgres-volume
 EXIT /B 0
 :tail
-    docker-compose -f "$COMPOSE_FILE_PATH" logs -f
+    docker-compose -f "%COMPOSE_FILE_PATH%" logs -f
 EXIT /B 0
