@@ -37,7 +37,7 @@ EXIT /B %ERRORLEVEL%
     docker-compose -f "%COMPOSE_FILE_PATH%" up --build -d
 EXIT /B 0
 :build
-  mvn -f ../ clean package -Dmaven.test.skip=true
+  call mvn -f ../ clean package -Dmaven.test.skip=true
 EXIT /B 0
 :down
   docker-compose -f "%COMPOSE_FILE_PATH%" down
