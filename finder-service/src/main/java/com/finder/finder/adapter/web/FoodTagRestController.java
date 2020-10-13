@@ -2,7 +2,7 @@ package com.finder.finder.adapter.web;
 
 import com.finder.finder.domain.FoodTag;
 import com.finder.finder.port.in.FoodTagService;
-import com.finder.finder.port.models.FoodTagRequest;
+import com.finder.finder.port.models.FoodTagRequestModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,12 +25,12 @@ public class FoodTagRestController {
     }
 
     @PostMapping
-    public FoodTag add(@RequestBody FoodTagRequest foodTagRequest) {
+    public FoodTag add(@RequestBody FoodTagRequestModel foodTagRequest) {
         return foodTagService.add(foodTagRequest);
     }
 
     @PutMapping("/{id}")
-    public FoodTag update(@PathVariable Long id, @RequestBody FoodTagRequest foodTagRequest) {
+    public FoodTag update(@PathVariable Long id, @RequestBody FoodTagRequestModel foodTagRequest) {
         return foodTagService.update(foodTagRequest, id);
     }
 

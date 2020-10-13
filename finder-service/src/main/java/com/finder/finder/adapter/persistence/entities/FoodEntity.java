@@ -22,6 +22,7 @@ public class FoodEntity {
     private String description;
     private double price;
     private String imagePath;
+    private boolean isActive;
     @ManyToMany
     @JoinTable(name = "food_foodTag",
             joinColumns = { @JoinColumn(name = "fk_food") },

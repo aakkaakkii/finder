@@ -1,12 +1,21 @@
 swagger:
   enabled: true
 
+spring:
+  servlet:
+    multipart:
+      max-file-size:  2MB
+      max-request-size: 2MB
+
 #amazon
 amazon:
   bucket:
-    privateKey: AKIAJ26LL65JHU7MK4HQ
-    publicKey: HJx9J4+3DumxASK071p/L3nHHC+pqU8Aw30NTPBv
+    accessKey: AKIAJPVSTGIRRREJGTFA
+    secretKey: 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
     region: eu-central-1
+    name: finder-app-test
+    url: https://finder-app-test.s3.eu-central-1.amazonaws.com
+
 
 eureka:
   instance:

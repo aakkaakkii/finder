@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface FoodTagPort {
     List<FoodTag> loadAll();
+    List<FoodTag> loadAllByIds(List<Long> ids);
     FoodTag getById(Long id);
     FoodTag add(FoodTag foodTag);
     FoodTag update(FoodTag foodTag);

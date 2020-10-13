@@ -11,18 +11,18 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AmazonConfig {
-    @Value("${amazon.bucket.privateKey}")
-    private String amazonBucketPrivateKey;
-    @Value("${amazon.bucket.publicKey}")
-    private String amazonBucketPublicKey;
+    @Value("${amazon.bucket.accessKey}")
+    private String amazonBucketAccessKey;
+    @Value("${amazon.bucket.secretKey}")
+    private String amazonBucketSecretKey;
     @Value("${amazon.bucket.region}")
     private String amazonBucketRegion;
 
     @Bean
     public AmazonS3 s3() {
         AWSCredentials awsCredentials = new BasicAWSCredentials(
-                amazonBucketPrivateKey,
-                amazonBucketPublicKey
+                amazonBucketAccessKey,
+                amazonBucketSecretKey
         );
 
         return AmazonS3ClientBuilder

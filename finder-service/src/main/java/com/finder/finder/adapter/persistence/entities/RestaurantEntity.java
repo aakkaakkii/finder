@@ -20,6 +20,7 @@ public class RestaurantEntity {
     private String name;
     private String description;
     private boolean isBlocked;
+    private boolean isActive;
     @OneToMany
     private List<RestaurantImageEntity> imagePaths;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")

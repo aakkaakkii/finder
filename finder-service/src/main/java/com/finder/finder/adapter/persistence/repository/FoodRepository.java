@@ -12,12 +12,16 @@ import java.util.List;
 @Repository
 public interface FoodRepository extends JpaRepository<FoodEntity, Long> {
     @Query(
-            value = "SELECT f FROM FoodEntity f WHERE f.id NOT IN :ids"
+            value = "SELECT f FROM FoodEntity f WHERE f.isActive=true"
     )
-    List<FoodEntity> findAllExcludeByIds(@Param("ids") List<Long> ids, Pageable pageable);
+    List<FoodEntity> loadActive(Pageable pageable);
+    @Query(
+            value = "SELECT f FROM FoodEntity f WHERE f.id NOT IN :ids AND f.isActive=true"
+    )
+    List<FoodEntity> findActiveExcludeByIds(@Param("ids") List<Long> ids, Pageable pageable);
 
     @Query(
-            value = "SELECT f FROM FoodEntity f JOIN f.foodTags t WHERE t.id=:tagId"
+            value = "SELECT f FROM FoodEntity f JOIN f.foodTags t WHERE t.id=:tagId AND  f.isActive=true"
     )
-    List<FoodEntity> loadFoodByTeg(@Param("tagId") Long groupId, Pageable pageable);
+    List<FoodEntity> loadActiveFoodByTeg(@Param("tagId") Long groupId, Pageable pageable);
 }

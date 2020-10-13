@@ -15,7 +15,8 @@ public class FileUtil {
 
 
     public static File.FileType getFileType(String contentType) {
-        String type = contentType.toLowerCase();
+        String[] tmp = contentType.toUpperCase().split("/");
+        String type = tmp[tmp.length - 1];
 
         if(imageTypes.contains(type)) {
             return File.FileType.IMAGE;

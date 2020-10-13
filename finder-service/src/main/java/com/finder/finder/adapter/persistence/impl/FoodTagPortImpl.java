@@ -24,6 +24,13 @@ public class FoodTagPortImpl implements FoodTagPort {
     }
 
     @Override
+    public List<FoodTag> loadAllByIds(List<Long> ids) {
+        return foodTagRepository.findAllById(ids).stream()
+                .map(foodTagMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public FoodTag getById(Long id) {
         return foodTagMapper.toDomain(foodTagRepository.getOne(id));
     }

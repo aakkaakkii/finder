@@ -18,4 +18,5 @@ public class Food {
     private double price;
     private String imagePath;
     private List<FoodTag> foodTags;
+    private boolean isActive;
 }

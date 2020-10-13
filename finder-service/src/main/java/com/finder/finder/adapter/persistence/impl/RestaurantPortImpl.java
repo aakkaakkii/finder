@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +24,13 @@ public class RestaurantPortImpl implements RestaurantPort {
     @Override
     public List<Restaurant> loadAll(int page, int limit) {
         return restaurantRepository.findAll(PageRequest.of(page, limit))
+                .stream().map(restaurantMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Restaurant> loadActive(int page, int limit) {
+        return restaurantRepository.loadActive(PageRequest.of(page, limit))
                 .stream().map(restaurantMapper::toDomain)
                 .collect(Collectors.toList());
     }

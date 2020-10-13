@@ -19,25 +19,32 @@ public class FoodPortImpl implements FoodPort {
     private final FoodMapper foodMapper;
 
     @Override
-    public List<Food> loadAll(int page, int limit) {
+    public List<Food> load(int page, int limit) {
         return foodRepository.findAll(PageRequest.of(page, limit))
                 .stream().map(foodMapper::toDomain)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Food> loadFoodByTeg(Long tagId, int page, int limit) {
-        return foodRepository.loadFoodByTeg(tagId, PageRequest.of(page, limit))
+    public List<Food> loadActive(int page, int limit) {
+        return foodRepository.loadActive(PageRequest.of(page, limit))
                 .stream().map(foodMapper::toDomain)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Food> getRandom5FoodExcludeByIds(List<Long> ids) {
+    public List<Food> loadActiveFoodByTeg(Long tagId, int page, int limit) {
+        return foodRepository.loadActiveFoodByTeg(tagId, PageRequest.of(page, limit))
+                .stream().map(foodMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Food> getRandom5ActiveFoodExcludeByIds(List<Long> ids) {
         int totalSize = (int) foodRepository.count();
         int bound = new Random().nextInt(totalSize);
 
-        return foodRepository.findAllExcludeByIds(ids, PageRequest.of(bound, 5))
+        return foodRepository.findActiveExcludeByIds(ids, PageRequest.of(bound, 5))
                 .stream().map(foodMapper::toDomain)
                 .collect(Collectors.toList());
     }

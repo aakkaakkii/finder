@@ -5,9 +5,10 @@ import com.finder.finder.domain.Food;
 import java.util.List;
 
 public interface FoodPort {
-    List<Food> loadAll(int page, int limit);
-    List<Food> loadFoodByTeg(Long tagId,int page, int limit);
-    List<Food> getRandom5FoodExcludeByIds(List<Long> ids);
+    List<Food> load(int page, int limit);
+    List<Food> loadActive(int page, int limit);
+    List<Food> loadActiveFoodByTeg(Long tagId,int page, int limit);
+    List<Food> getRandom5ActiveFoodExcludeByIds(List<Long> ids);
     Food getById(Long id);
     Food add(Food food);
     Food update(Food food);
