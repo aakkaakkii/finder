@@ -78,6 +78,25 @@ services:
       SERVER_PORT: "8180"
       DEBUG_PORT: "8004"
       DISCOVERY_URI: "http://discovery-service:8761/eureka/"
+  finder-service:
+    image: finder/finder-service
+    build:
+      dockerfile: ./Dockerfile
+      context: ../../finder-service
+    ports:
+      - "9080:9080"
+      - "8005:8005"
+    links:
+      - "gateway:gateway"
+      - "discovery-service:discovery-service"
+      - "finder-postgres:finder-postgres"
+    environment:
+      SERVER_PORT: "9080"
+      DEBUG_PORT: "8005"
+      DISCOVERY_URI: "http://discovery-service:8761/eureka/"
+      DB_URI: "jdbc:postgresql://finder-postgres:5432/finder"
+    depends_on:
+      - finder-postgres
 
 volumes:
   finder-postgres-volume:

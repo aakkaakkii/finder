@@ -11,19 +11,8 @@ spring:
           lob:
             non_contextual_creation: true
 
-jwt:
-  token:
-    secret: JWTeDiToRaPp
-    refresh:
-      expired: 32400000
-    bearer:
-      expired: 32400000
-
 swagger:
   enabled: true
-
-app:
-    mailServerEnabled: true
 
 eureka:
   instance:

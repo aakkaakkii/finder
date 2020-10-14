@@ -69,6 +69,7 @@ public class FileStorageRestController {
 
     @DeleteMapping("/multiple")
     public void deleteFiles(@RequestParam String[] paths) {
+        //TODO: add folder delete
         fileStorageService.delete(Arrays.asList(paths));
 
     }

@@ -24,7 +24,7 @@ public class SwaggerConf {
         return new Docket(DocumentationType.SWAGGER_2)
                 .enable(isSwaggerEnabled)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.finder.adapter.web"))
+                .apis(RequestHandlerSelectors.basePackage("com.finder.finder.adapter.web"))
                 .paths(PathSelectors.any())
                 .build()
                 .globalOperationParameters(

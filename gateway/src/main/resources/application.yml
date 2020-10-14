@@ -21,4 +21,5 @@ zuul:
 #  prefix:  /api
   routes:
     auth-server: /auth/**
+    finder-service: /finder/**
   sensitive-headers: Authorization
