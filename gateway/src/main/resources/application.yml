@@ -20,6 +20,7 @@ eureka:
 zuul:
 #  prefix:  /api
   routes:
-    auth-server: /auth/**
-    finder-service: /finder/**
+    auth-server: /api/auth/**
+    finder-service: /api/finder/**
   sensitive-headers: Authorization
+  ignoredHeaders: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
