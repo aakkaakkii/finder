@@ -15,14 +15,14 @@ import java.util.Map;
 public class MailSenderImpl implements MailSenderPort {
     private final TemplateEngine templateEngine;
     private final MailClient mailClient;
-/*    @Value("{app.mailServerEnabled}")
-    private boolean isMailServerEnabled;*/
+    /*    @Value("{app.mailServerEnabled}")
+        private boolean isMailServerEnabled;*/
     @Value("{app.hostUrl}")
     private String hostUrl;
 
     @Override
     public void sendActivationMail(String token, String to) {
-    //TODO: implement if mail server is not enabled
+        //TODO: implement if mail server is not enabled
         /*if(!isMailServerEnabled) {
             throw new MailServerIsNotEnabledException();
         }*/
