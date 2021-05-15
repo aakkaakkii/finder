@@ -36,10 +36,12 @@ services:
     environment:
       SERVER_PORT: "8901"
       DEBUG_PORT: "8002"
+      KAFKASERVER_URI: "kafkaserver:9092"
       DISCOVERY_URI: "http://discovery-service:8761/eureka/"
       DB_URI: "jdbc:postgresql://finder-postgres:5432/finder"
     depends_on:
       - finder-postgres
+      - kafkaserver
   finder-postgres:
     image: postgres:9.6
     ports:
@@ -63,7 +65,10 @@ services:
     environment:
       SERVER_PORT: "8025"
       DEBUG_PORT: "8003"
+      KAFKASERVER_URI: "kafkaserver:9092"
       DISCOVERY_URI: "http://discovery-service:8761/eureka/"
+    depends_on:
+      - kafkaserver
   file-storage:
     image: finder/file-storage
     build:
@@ -97,6 +102,20 @@ services:
       DB_URI: "jdbc:postgresql://finder-postgres:5432/finder"
     depends_on:
       - finder-postgres
+  zookeeper:
+    image: wurstmeister/zookeeper:3.4.6
+    ports:
+      - 2181:2181
+  kafkaserver:
+    image: wurstmeister/kafka:2.11-2.0.0
+    ports:
+      - 9092:9092
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafkaserver:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
 
 volumes:
   finder-postgres-volume:

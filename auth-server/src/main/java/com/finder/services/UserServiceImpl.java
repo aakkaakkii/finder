@@ -5,6 +5,7 @@ import com.finder.domain.User;
 import com.finder.exceprions.MailAlreadyExistsException;
 import com.finder.exceprions.UserAlreadyExistsException;
 import com.finder.exceprions.UserNotFoundException;
+import com.finder.port.out.EventPort;
 import com.finder.port.out.GroupPort;
 import com.finder.port.out.UserPort;
 import com.finder.port.models.request.UserRequestModel;
@@ -23,6 +24,7 @@ public class UserServiceImpl implements UserService {
     private final UserPort userPort;
     private final GroupPort groupPort;
     private final PasswordEncoder passwordEncoder;
+    private final EventPort eventPort;
 
     @Override
     public List<User> load(int page, int limit) {
@@ -66,7 +68,7 @@ public class UserServiceImpl implements UserService {
 
         Set<Group> groups = groupPort.loadByGroupIds(user.groupsIds);
 
-        User u = User.builder()
+        User savedUser = userPort.add(User.builder()
                 .username(user.username)
                 .email(user.email)
                 .password(passwordEncoder.encode(user.password))
@@ -75,8 +77,11 @@ public class UserServiceImpl implements UserService {
                 .active(user.active)
                 .permissions(user.permissions)
                 .groups(groups)
-                .build();
-        return userPort.add(u);
+                .build());
+
+        eventPort.publishUserEvent(EventPort.EventType.ADD, savedUser);
+
+        return savedUser;
     }
 
     @Override

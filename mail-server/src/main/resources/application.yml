@@ -5,6 +5,14 @@ spring:
     password: finder2demo
     port: 587
     protocol: smtp
+  cloud:
+    stream:
+      bindings:
+        inboundUser:
+          destination: userTopic
+          content-type: application/json
+#  kafka:
+#    bootstrap-servers: localhost:9092
 
 mail:
   starttls:
@@ -25,3 +33,6 @@ eureka:
     fetchRegistry: true
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+
+server:
+  port: 8811

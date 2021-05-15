@@ -40,9 +40,12 @@ case "$1" in
     down
     purge
     ;;
+  build)
+    build
+    ;;
   tail)
     tail
     ;;
   *)
-    echo "Usage: $0 {build_start|start|stop|purge|tail}"
+    echo "Usage: $0 {build_start|build|start|stop|purge|tail}"
 esac
