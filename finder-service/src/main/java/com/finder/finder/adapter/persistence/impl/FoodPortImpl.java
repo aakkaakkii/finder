@@ -1,7 +1,9 @@
 package com.finder.finder.adapter.persistence.impl;
 
+import com.finder.finder.adapter.persistence.entities.FoodEntity;
 import com.finder.finder.adapter.persistence.mappers.FoodMapper;
 import com.finder.finder.adapter.persistence.repository.FoodRepository;
+import com.finder.finder.adapter.persistence.repository.search.FoodSearchRepository;
 import com.finder.finder.domain.Food;
 import com.finder.finder.port.out.FoodPort;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
 public class FoodPortImpl implements FoodPort {
     private final FoodRepository foodRepository;
     private final FoodMapper foodMapper;
+    private final FoodSearchRepository foodSearchRepository;
 
     @Override
     public List<Food> load(int page, int limit) {
@@ -56,20 +59,27 @@ public class FoodPortImpl implements FoodPort {
 
     @Override
     public Food add(Food food) {
+        FoodEntity foodEntity = foodMapper.toEntity(food);
+        foodSearchRepository.save(foodEntity);
+
         return foodMapper.toDomain(
-                foodRepository.save(foodMapper.toEntity(food))
+                foodRepository.save(foodEntity)
         );
     }
 
     @Override
     public Food update(Food food) {
+        FoodEntity foodEntity = foodMapper.toEntity(food);
+        foodSearchRepository.save(foodEntity);
+
         return foodMapper.toDomain(
-                foodRepository.save(foodMapper.toEntity(food))
+                foodRepository.save(foodEntity)
         );
     }
 
     @Override
     public void delete(Long id) {
+        foodSearchRepository.deleteById(id);
         foodRepository.deleteById(id);
     }
 }
